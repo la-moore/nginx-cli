@@ -13,7 +13,8 @@ class Nginx
 {
     protected Filesystem $filesystem;
 
-    protected static string $configFile = '';
+    protected static ?string $configFile = null;
+    protected string $configDir = '';
 
     static function testMode()
     {
@@ -23,20 +24,22 @@ class Nginx
     public function __construct()
     {
         $this->filesystem = new Filesystem();
+        $this->setNginxPath();
+    }
 
-        if (!Nginx::$configFile) {
-            Nginx::$configFile = $this->run(`(awk -F= -v RS=' ' '/conf-path/ {print $2}' <<< $(nginx -V 2>&1))`);
+    public function setNginxPath() {
+        $path = Nginx::$configFile ?: $this->run("nginx -V 2>&1 | grep -o '\-\-conf-path=\(.*conf\)' | cut -d '=' -f2");
 
+        if (!$path) {
             throw new RuntimeException('Unable to find Nginx config file.');
         }
+
+        $this->configDir = dirname($path);
     }
 
     public function fromBaseDir(...$paths)
     {
-        $configDir = dirname(Nginx::$configFile);
-        $path = Path::join($configDir, ...$paths);
-
-        return $path;
+        return Path::join($this->configDir, ...$paths);
     }
 
 
