@@ -15,8 +15,7 @@ class ListCommand extends Command
 
     protected function configure()
     {
-        $this
-            ->setName('list')
+        $this->setName('list')
             ->setDescription('List available sites');
     }
 

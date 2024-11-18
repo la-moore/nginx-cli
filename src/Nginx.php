@@ -96,6 +96,13 @@ class Nginx
         return $this->filesystem->exists($path);
     }
 
+    public function isSiteAvailable(string $site)
+    {
+        $path = $this->fromBaseDir('sites-available', $site);
+
+        return $this->filesystem->exists($path);
+    }
+
 
     public function createSite(string $domain, string$config)
     {

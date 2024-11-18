@@ -2,7 +2,9 @@
 
 namespace Nginx\Cli;
 
+use RuntimeException;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -15,9 +17,9 @@ class DisableCommand extends Command
 
     protected function configure()
     {
-        $this
-            ->setName('disable')
-            ->setDescription('Disable site');
+        $this->setName('disable')
+            ->setDescription('Disable site config')
+            ->addArgument('domain', InputArgument::REQUIRED, 'Project domain');
     }
 
     protected function initialize(InputInterface $input, OutputInterface $output)
@@ -26,20 +28,29 @@ class DisableCommand extends Command
         $this->output = $output;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function interact(InputInterface $input, OutputInterface $output)
     {
         $ng = new Nginx();
 
-        $request = select(
-            label: 'What site do you want to disable?',
-            options: $ng->getSitesEnabled(),
-        );
-
-        if ($request) {
-            $ng->disableSite($request);
-
-            $this->output->writeln('Site is disabled!');
+        if (!$this->input->getArgument('domain')) {
+            $this->input->setArgument('domain', select(
+                label: 'Which site do you want to disable?',
+                options: $ng->getSitesEnabled(),
+            ));
         }
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $ng = new Nginx();
+        $domain = $this->input->getArgument('domain');
+
+        if (!$ng->isSiteEnabled($domain)) {
+            throw new RuntimeException('Site is not enabled');
+        }
+
+        $ng->disableSite($domain);
+        $this->output->writeln('Site is disabled!');
 
         return 0;
     }

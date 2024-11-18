@@ -2,15 +2,11 @@
 
 namespace Nginx\Cli;
 
-use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use function Laravel\Prompts\select;
-use function Laravel\Prompts\suggest;
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\text;
 
@@ -34,13 +30,6 @@ class NewCommand extends Command
     {
         $this->input = $input;
         $this->output = $output;
-
-//        $this->configurePrompts($input, $output);
-//
-//        $this
-//            ->setupTheme()
-//            ->checkCliVersion()
-//            ->notifyIfOldCliVersion();
     }
 
 

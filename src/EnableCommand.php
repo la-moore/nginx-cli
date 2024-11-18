@@ -2,7 +2,9 @@
 
 namespace Nginx\Cli;
 
+use RuntimeException;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -15,9 +17,9 @@ class EnableCommand extends Command
 
     protected function configure()
     {
-        $this
-            ->setName('enable')
-            ->setDescription('Enable site');
+        $this->setName('enable')
+            ->setDescription('Enable site config')
+            ->addArgument('domain', InputArgument::REQUIRED, 'Project domain');
     }
 
     protected function initialize(InputInterface $input, OutputInterface $output)
@@ -26,20 +28,29 @@ class EnableCommand extends Command
         $this->output = $output;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function interact(InputInterface $input, OutputInterface $output)
     {
         $ng = new Nginx();
 
-        $request = select(
-            label: 'Which site do you want to enable?',
-            options: $ng->getSitesDisabled(),
-        );
-
-        if ($request) {
-            $ng->enableSite($request);
-
-            $this->output->writeln('Site is enabled!');
+        if (!$this->input->getArgument('domain')) {
+            $this->input->setArgument('domain', select(
+                label: 'Which site do you want to enable?',
+                options: $ng->getSitesDisabled(),
+            ));
         }
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $ng = new Nginx();
+        $domain = $this->input->getArgument('domain');
+
+        if (!$ng->isSiteAvailable($domain)) {
+            throw new RuntimeException('Site is not available');
+        }
+
+        $ng->enableSite($domain);
+        $this->output->writeln('Site is enabled!');
 
         return 0;
     }
