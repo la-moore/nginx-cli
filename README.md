@@ -5,7 +5,7 @@
 
 ## Installing the NginxCLI
 
-```
+```bash
 composer global require la-moore/nginx-cli
 ```
 
@@ -20,7 +20,7 @@ Once installed, you should be able to run `nginx-cli {command}` from within any 
 
 ## Updating the NginxCLI
 
-```
+```bash
 composer global update la-moore/nginx-cli
 ```
 
@@ -32,7 +32,7 @@ Run this command to update the CLI tool to the most recent published version. If
 
 Create a new domain config with the `new` command:
 
-```
+```bash
 nginx-cli new <example.com>
 ```
 
@@ -40,7 +40,7 @@ nginx-cli new <example.com>
 
 Enable a domain config with the `enable` command:
 
-```
+```bash
 nginx-cli enable <example.com>
 ```
 
@@ -48,14 +48,46 @@ nginx-cli enable <example.com>
 
 Disable a domain config with the `disable` command:
 
-```
+```bash
 nginx-cli disable <example.com>
 ```
 
-### Run tests
+### Nginx reload
+
+Reload Nginx with the `reload` command:
+
+```bash
+nginx-cli reload
+```
+
+### Nginx Start
+
+Start Nginx with the `start` command:
+
+```bash
+nginx-cli start
+```
+
+### Nginx stop
+
+Stop Nginx with the `stop` command:
+
+```bash
+nginx-cli stop
+```
+
+### Nginx test config
+
+Stop Nginx with the `test` command:
+
+```bash
+nginx-cli test
+```
+
+## Run tests
 
 Run tests with:
 
-```
+```bash
 ./vendor/bin/phpunit tests/NewCommandIntegrationTest.php
 ```
