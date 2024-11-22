@@ -1,9 +1,9 @@
 
-# NginxCLI tool
+# NginxCLI
 
 🌴 Create and manage your **Nginx** configs from the command line.
 
-## Installing the NginxCLI tool
+## Installing the NginxCLI
 
 ```
 composer global require la-moore/nginx-cli
@@ -18,7 +18,7 @@ export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 Once installed, you should be able to run `nginx-cli {command}` from within any directory.
 
-## Updating the NginxCLI tool
+## Updating the NginxCLI
 
 ```
 composer global update la-moore/nginx-cli
@@ -26,7 +26,7 @@ composer global update la-moore/nginx-cli
 
 Run this command to update the CLI tool to the most recent published version. If there's been a major version release, you may need to run `require` instead of update.
 
-## Using the NginxCLI tool
+## Using the NginxCLI
 
 ### Create new domain config
 

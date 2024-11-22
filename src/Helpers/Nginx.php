@@ -1,13 +1,13 @@
 <?php
 
-namespace Nginx\Cli;
+namespace Nginx\Cli\Helpers;
 
+use DirectoryIterator;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
-use Symfony\Component\Process\Exception\RuntimeException;
 use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Exception\RuntimeException;
 use Symfony\Component\Process\Process;
-use DirectoryIterator;
 
 class Nginx
 {
@@ -58,7 +58,7 @@ class Nginx
             }
         }
 
-        return $files;
+        return sort($files, SORT_NATURAL | SORT_FLAG_CASE);
     }
 
     public function getSitesAvailable()
@@ -72,7 +72,7 @@ class Nginx
             $files[] = $file->getFilename();
         }
 
-        return $files;
+        return sort($files, SORT_NATURAL | SORT_FLAG_CASE);
     }
 
     public function getSitesEnabled()
@@ -86,7 +86,7 @@ class Nginx
             $files[] = $file->getFilename();
         }
 
-        return $files;
+        return sort($files, SORT_NATURAL | SORT_FLAG_CASE);
     }
 
     public function isSiteEnabled(string $site)

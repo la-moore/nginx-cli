@@ -1,6 +1,6 @@
 <?php
 
-namespace Nginx\Cli;
+namespace Nginx\Cli\Helpers;
 
 class NginxConfig
 {

@@ -19,10 +19,15 @@ if (isset($_SERVER['HOME'])) {
     throw new Exception("Could not determine home directory!", 1);
 }
 
-$app = new Symfony\Component\Console\Application('NginxCli Tool', Nginx\Cli\Version::get());
+$app = new Symfony\Component\Console\Application('NginxCli', Nginx\Cli\Version::get());
 $app->add(new Nginx\Cli\NewCommand());
 $app->add(new Nginx\Cli\ListCommand());
 $app->add(new Nginx\Cli\EnableCommand());
 $app->add(new Nginx\Cli\DisableCommand());
+
+$app->add(new Nginx\Cli\ReloadCommand());
+$app->add(new Nginx\Cli\StartCommand());
+$app->add(new Nginx\Cli\StopCommand());
+$app->add(new Nginx\Cli\TestCommand());
 
 $app->run();

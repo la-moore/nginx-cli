@@ -2,12 +2,12 @@
 
 namespace Nginx\Cli\Tests;
 
-use PHPUnit\Framework\TestCase;
-use Nginx\Cli\Nginx;
-use Nginx\Cli\NewCommand;
-use Nginx\Cli\ListCommand;
-use Nginx\Cli\EnableCommand;
 use Nginx\Cli\DisableCommand;
+use Nginx\Cli\EnableCommand;
+use Nginx\Cli\Helpers\Nginx;
+use Nginx\Cli\ListCommand;
+use Nginx\Cli\NewCommand;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Filesystem\Filesystem;

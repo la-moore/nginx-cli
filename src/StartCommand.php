@@ -7,15 +7,15 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ListCommand extends Command
+class StartCommand extends Command
 {
     protected $input;
     protected $output;
 
     protected function configure()
     {
-        $this->setName('list')
-            ->setDescription('List available sites');
+        $this->setName('start')
+            ->setDescription('Nginx start');
     }
 
     protected function initialize(InputInterface $input, OutputInterface $output)
@@ -28,13 +28,7 @@ class ListCommand extends Command
     {
         $ng = new Nginx();
 
-        foreach ($ng->getSitesAvailable() as $site) {
-            if ($ng->isSiteEnabled($site)) {
-                $output->writeln('<info>'.$site.'</info>');
-            } else {
-                $output->writeln('<comment>'.$site.'</comment>');
-            }
-        }
+        $ng->run('invoke-rc.d nginx start');
 
         return 0;
     }
