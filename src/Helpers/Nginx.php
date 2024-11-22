@@ -58,7 +58,9 @@ class Nginx
             }
         }
 
-        return sort($files, SORT_NATURAL | SORT_FLAG_CASE);
+        sort($files, SORT_NATURAL | SORT_FLAG_CASE);
+
+        return $files;
     }
 
     public function getSitesAvailable()
@@ -72,7 +74,9 @@ class Nginx
             $files[] = $file->getFilename();
         }
 
-        return sort($files, SORT_NATURAL | SORT_FLAG_CASE);
+        sort($files, SORT_NATURAL | SORT_FLAG_CASE);
+
+        return $files;
     }
 
     public function getSitesEnabled()
@@ -86,7 +90,9 @@ class Nginx
             $files[] = $file->getFilename();
         }
 
-        return sort($files, SORT_NATURAL | SORT_FLAG_CASE);
+        sort($files, SORT_NATURAL | SORT_FLAG_CASE);
+
+        return $files;
     }
 
     public function isSiteEnabled(string $site)
