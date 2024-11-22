@@ -29,6 +29,7 @@ class StopCommand extends Command
         $ng = new Nginx();
 
         $ng->run('invoke-rc.d nginx stop');
+        $output->writeln('Nginx stopped!');
 
         return 0;
     }

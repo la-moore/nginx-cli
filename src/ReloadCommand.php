@@ -29,6 +29,7 @@ class ReloadCommand extends Command
         $ng = new Nginx();
 
         $ng->run('invoke-rc.d nginx reload');
+        $output->writeln('Nginx reloaded');
 
         return 0;
     }

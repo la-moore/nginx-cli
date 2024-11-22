@@ -28,7 +28,8 @@ class TestCommand extends Command
     {
         $ng = new Nginx();
 
-        $ng->run('invoke-rc.d nginx configtest');
+        $data = $ng->run('invoke-rc.d nginx configtest');
+        $output->writeln($data);;
 
         return 0;
     }

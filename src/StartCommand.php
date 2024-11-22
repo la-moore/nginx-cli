@@ -29,6 +29,7 @@ class StartCommand extends Command
         $ng = new Nginx();
 
         $ng->run('invoke-rc.d nginx start');
+        $output->writeln('Nginx started');
 
         return 0;
     }
